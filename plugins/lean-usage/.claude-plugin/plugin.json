@@ -1,0 +1,6 @@
+{
+  "name": "lean-usage",
+  "description": "Daniel's usage-efficiency rules: model per subagent, fewer subagents, small context, early compaction.",
+  "version": "1.0.0",
+  "author": { "name": "dallen2021" }
+}

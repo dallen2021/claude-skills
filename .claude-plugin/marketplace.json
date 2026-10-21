@@ -1,0 +1,11 @@
+{
+  "name": "daniel-skills",
+  "owner": { "name": "dallen2021" },
+  "plugins": [
+    {
+      "name": "lean-usage",
+      "source": "./plugins/lean-usage",
+      "description": "Usage-efficiency rules: model per subagent, fewer subagents, small context, early compaction."
+    }
+  ]
+}
