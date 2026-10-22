@@ -43,3 +43,7 @@ claude plugin install lean-usage@daniel-skills --scope user
 ```
 
 `setup/manifest.json` lists the settings and the `CLAUDE.md` line.
+
+## License and contributing
+
+MIT licensed (see `LICENSE`). Suggestions are welcome as issues or pull requests; see `CONTRIBUTING.md`.
