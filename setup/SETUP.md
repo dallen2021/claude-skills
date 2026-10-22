@@ -64,6 +64,12 @@ Write the manifest's `instructions` for your agent between the markers, in the u
 
 Create the file if it's missing. Keep everything outside the markers unchanged.
 
+**A machine set up by hand may already carry a line for a skill outside the markers.** For example, the `lean-usage` usage line on an older install. Don't add the same line a second time:
+- If you find an equivalent line, move it inside the markers, replacing it with the manifest's current wording.
+- Say that you did so in the report.
+
+The same applies to settings that are already present with the manifest's values: leave them as they are, and count them as done.
+
 ## 5. Tailor it to this workspace
 
 Look at the user's current workspace: the folder the agent was started in, plus any other folders the user names.
