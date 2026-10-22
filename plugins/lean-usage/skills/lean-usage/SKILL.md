@@ -47,12 +47,18 @@ Each subagent re-reads files and carries its own context, so it costs much more 
 - Start a fresh session when the task changes, or when a session has run for many hours or passed ~400k tokens. Before ending it, write a handoff memory (state, decisions, open items) so the new session starts from that instead of a long history.
 - Long-running coordinator/loop sessions are the most expensive kind. Make sure they are intentional, keep their turns short, and restart them from a handoff at least daily.
 
-## 5. Talk less between sessions
+## 5. No hung background tasks
+
+- Every background or wait command has a time limit: `timeout 600 …`, or a loop with a maximum count. Never write a bare `until …; do sleep; done`, which spins forever if the file never appears.
+- Never leave a command that can block on stdin, e.g. a broken heredoc feeding `python -`. Write the script to a file and run the file.
+- When a background task's purpose is over (the build finished, the agent ended), stop it. Check for leftovers at the end of a task.
+
+## 6. Talk less between sessions
 
 - Batch cross-session messages; no acknowledgements; don't reply to acks.
 - Message only for a result ready to review, a question for the user, or a request.
 
-## 6. Effort
+## 7. Effort
 
 Routine work (edits, ports, relays, status) doesn't need maximum effort. Keep the highest effort for design,
 visual judgement and hard debugging, and say so when a task deserves more.
