@@ -1,0 +1,28 @@
+{
+  "repo": "https://github.com/dallen2021/claude-skills",
+  "marketplace": "daniel-skills",
+  "plugins": [
+    {
+      "name": "lean-usage",
+      "skills": ["lean-usage"],
+      "settings": {
+        "claude": {
+          "file": "~/.claude/settings.json",
+          "merge": {
+            "autoCompactWindow": 200000,
+            "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet" }
+          }
+        },
+        "codex": {
+          "file": "~/.codex/config.toml",
+          "merge": {},
+          "note": "Codex has no auto-compact window or subagent model default to set; the instruction line carries the rules."
+        }
+      },
+      "instructions": {
+        "claude": "- Usage: follow the `lean-usage` skill. Set an explicit `model` on every subagent (Opus for visual, 3D, UI and hard reasoning; Sonnet for code; Haiku for search). Do small jobs inline. At most 2 subagents at once, no forks. Use contact sheets, not piles of screenshots. Time-limit every wait or background command. Compact at breakpoints, and start a fresh session with a handoff memory when the task changes.",
+        "codex": "- Usage: follow the `lean-usage` skill in `~/.codex/skills/lean-usage/`. Read its Claude terms as Codex equivalents: subagents are parallel tasks or agents, Opus/Sonnet/Haiku are your strongest/standard/fastest models, and `/compact` is starting a fresh session with a handoff note. Do small jobs inline. At most 2 parallel agents. Time-limit every wait. Keep context small."
+      }
+    }
+  ]
+}
