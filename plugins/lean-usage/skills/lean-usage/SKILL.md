@@ -1,6 +1,6 @@
 ---
 name: lean-usage
-description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets, chosen by difficulty (Opus for 3D/UI/visual and big or hard coding, Sonnet for small easy coding, Haiku for search only), when to use subagents at all, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
+description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets, chosen by difficulty (Opus for 3D/UI/visual and big or hard coding, Sonnet for small easy coding, Haiku for search only), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
 ---
 
 # Lean usage
@@ -26,11 +26,12 @@ Never give Haiku a task that edits a project, decides something or judges qualit
 
 If an agent is already running on the "wrong" model, let it finish rather than restarting it.
 
-## 2. Use fewer subagents
+## 2. Let long-term sessions do the work, not subagents
 
-Each subagent re-reads files and carries its own context, so it costs much more than doing the same work inline.
+Quality comes first, cost second. Each subagent re-reads files and carries its own context, so it usually costs more than letting a session do the work itself.
+- Where a workspace runs long-term sessions (a coordinator per project and a session per role), those sessions do the work themselves. When one grows too large, it writes a handoff and a fresh session replaces it. That keeps context small without subagents.
 - Do it inline when it's one edit, a few commands, reading one or two files, or a quick check.
-- Use a subagent only for work that is large and self-contained, or needs a different model, or must run while you keep going.
+- Use a subagent only when it makes the work cheaper and the result is just as good: a wide search, or an audit that would flood your context.
 - At most 2 running at once per session.
 - One agent per batch of related items, not one per item.
 - No forks; a fork copies your whole context. Use fresh agents with short briefs: files/area, what done looks like, constraints.
