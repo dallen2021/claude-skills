@@ -1,6 +1,6 @@
 ---
 name: lean-usage
-description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (Opus for visual/3D/UI/hard reasoning, Sonnet for code, Haiku for search), when to use subagents at all, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
+description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets, chosen by difficulty (Opus for 3D/UI/visual and big or hard coding, Sonnet for small easy coding, Haiku for search only), when to use subagents at all, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
 ---
 
 # Lean usage
@@ -9,17 +9,20 @@ Daniel hit his session limit on 2026-10-21. The usage panel showed 92% of usage 
 sessions and from turns above 150k context, and 74% from sessions active 8+ hours. These rules exist to cut that.
 Quality still comes first: spend where it buys quality and nowhere else.
 
-## 1. Pick the model per agent
+## 1. Pick the model by difficulty (Daniel, 2026-10-29)
 
-Set `model` explicitly on every Agent call. The default for subagents is Sonnet
-(`CLAUDE_CODE_SUBAGENT_MODEL=sonnet` in user settings), so an omitted `model` means Sonnet.
+Set `model` explicitly on every Agent call. Choose by how hard the task is, not only by its kind. The default for
+subagents is Sonnet (`CLAUDE_CODE_SUBAGENT_MODEL=sonnet` in user settings), so an omitted `model` means Sonnet.
 
 | Work | Model |
 |---|---|
 | The main session and any coordinator session; design decisions; hard reasoning | Opus |
-| Anything visual: 3D models, textures, UI and screens, icons, judging screenshots or contact sheets, build aesthetics | Opus |
-| Code: ports, refactors, tests, parity checks, generators, scripts, merges, migrations, config | Sonnet |
-| Searches, file sweeps, listings, size surveys, doc lookups | Haiku (or Sonnet if it must reason about what it finds) |
+| Anything visual or spatial, at any size or effort: 3D models, textures, UI and screens, icons, VFX, judging screenshots or contact sheets | Opus |
+| Big or hard code: multi-file features, architecture, debugging an unclear failure, anything Sonnet already failed on | Opus |
+| Small, clear code: one module, a known fix, tests, scripts, config, docs | Sonnet |
+| Searches, file sweeps, listings, size surveys, doc lookups | Haiku |
+
+Never give Haiku a task that edits a project, decides something or judges quality.
 
 If an agent is already running on the "wrong" model, let it finish rather than restarting it.
 
