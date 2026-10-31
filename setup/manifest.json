@@ -20,7 +20,7 @@
         }
       },
       "instructions": {
-        "claude": "- Usage: follow the `lean-usage` skill. Set an explicit `model` on every subagent by difficulty (Opus for all 3D, UI and visual work and for big or hard coding; Sonnet for small, easy coding; Haiku for search only, never for important project work). Do small jobs inline. At most 2 subagents at once, no forks. Use contact sheets, not piles of screenshots. Time-limit every wait or background command. Compact at breakpoints, and start a fresh session with a handoff memory when the task changes.",
+        "claude": "- Usage: follow the `lean-usage` skill. Set an explicit `model` on every subagent by task, and a cheaper one only with no obvious loss of quality (Opus where it's clearly better: all 3D, UI and visual work and big or hard coding; Sonnet for reading many files, retrieval and small, easy coding; Haiku with care, only for read-only jobs such as searches or gathering memory context, never for edits or decisions). Do small jobs inline. At most 2 subagents at once, no forks. Use contact sheets, not piles of screenshots. Time-limit every wait or background command. Compact at breakpoints, and start a fresh session with a handoff memory when the task changes.",
         "codex": "- Usage: follow the `lean-usage` skill in `~/.codex/skills/lean-usage/`. Read its Claude terms as Codex equivalents: subagents are parallel tasks or agents, Opus/Sonnet/Haiku are your strongest/standard/fastest models, and `/compact` is starting a fresh session with a handoff note. Do small jobs inline. At most 2 parallel agents. Time-limit every wait. Keep context small."
       }
     }

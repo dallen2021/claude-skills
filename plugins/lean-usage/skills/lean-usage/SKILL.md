@@ -1,6 +1,6 @@
 ---
 name: lean-usage
-description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets, chosen by difficulty (Opus for 3D/UI/visual and big or hard coding, Sonnet for small easy coding, Haiku for search only), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
+description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets, chosen by task with a cheaper model only when quality doesn't obviously drop (Opus for 3D/UI/visual and big or hard coding, Sonnet for reading many files, retrieval and small easy coding, Haiku with care for read-only jobs), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
 ---
 
 # Lean usage
@@ -9,20 +9,21 @@ Daniel hit his session limit on 2026-10-21. The usage panel showed 92% of usage 
 sessions and from turns above 150k context, and 74% from sessions active 8+ hours. These rules exist to cut that.
 Quality still comes first: spend where it buys quality and nowhere else.
 
-## 1. Pick the model by difficulty (Daniel, 2026-10-29)
+## 1. Pick the model by task (Daniel, 2026-10-29 and 2026-10-31)
 
-Set `model` explicitly on every Agent call. Choose by how hard the task is, not only by its kind. The default for
-subagents is Sonnet (`CLAUDE_CODE_SUBAGENT_MODEL=sonnet` in user settings), so an omitted `model` means Sonnet.
+Set `model` explicitly on every Agent call. Choose by the task, never by cost alone: use a cheaper model only where
+there would be no obvious decline in quality. Sonnet or Haiku would be cheaper for 3D modelling, but Opus is clearly
+better at it, so it stays on Opus. There is no global default model for subagents, so always set one.
 
 | Work | Model |
 |---|---|
 | The main session and any coordinator session; design decisions; hard reasoning | Opus |
 | Anything visual or spatial, at any size or effort: 3D models, textures, UI and screens, icons, VFX, judging screenshots or contact sheets | Opus |
 | Big or hard code: multi-file features, architecture, debugging an unclear failure, anything Sonnet already failed on | Opus |
-| Small, clear code: one module, a known fix, tests, scripts, config, docs | Sonnet |
-| Searches, file sweeps, listings, size surveys, doc lookups | Haiku |
+| Reading a lot of files, retrieving something; small, easy code: one module, a known fix, tests, scripts, config, docs | Sonnet |
+| With care, read-only jobs: searches, file sweeps, listings, size surveys, doc lookups, gathering context for memory | Haiku |
 
-Never give Haiku a task that edits a project, decides something or judges quality.
+Never give Haiku a task that edits anything, decides something or judges quality.
 
 If an agent is already running on the "wrong" model, let it finish rather than restarting it.
 
