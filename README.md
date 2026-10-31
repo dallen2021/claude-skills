@@ -31,7 +31,7 @@ The agent:
 1. Add `plugins/<plugin>/` with `.claude-plugin/plugin.json` and `skills/<skill>/SKILL.md`.
 2. List it in `.claude-plugin/marketplace.json`.
 3. Add it to `setup/manifest.json`: its skills, settings and instruction lines for each agent.
-4. Push.
+4. Open a pull request and merge it; `main` takes changes only through pull requests.
 
 Each machine picks it up the next time the block is pasted.
 
