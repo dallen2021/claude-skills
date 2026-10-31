@@ -9,7 +9,7 @@
         "claude": {
           "file": "~/.claude/settings.json",
           "merge": {
-            "autoCompactWindow": 200000,
+            "autoCompactWindow": 400000,
             "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet" }
           }
         },

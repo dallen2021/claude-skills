@@ -48,8 +48,8 @@ Quality comes first, cost second. Each subagent re-reads files and carries its o
 
 ## 4. Compact early, end long sessions
 
-- Auto-compact is set to trigger around 200k (`autoCompactWindow`). Also compact by hand at natural breakpoints: after a task lands, before switching topics.
-- Start a fresh session when the task changes, or when a session has run for many hours or passed ~400k tokens. Before ending it, write a handoff memory (state, decisions, open items) so the new session starts from that instead of a long history.
+- Auto-compact is set to trigger around 400k (`autoCompactWindow`). Also compact by hand at natural breakpoints: after a task lands, before switching topics.
+- Start a fresh session when the task changes, or when a session has run for many hours or is nearing the ~400k compaction point. Before ending it, write a handoff memory (state, decisions, open items) so the new session starts from that instead of a long history.
 - Long-running coordinator/loop sessions are the most expensive kind. Make sure they are intentional, keep their turns short, and restart them from a handoff at least daily.
 
 ## 5. No hung background tasks
