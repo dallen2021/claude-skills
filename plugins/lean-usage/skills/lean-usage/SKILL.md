@@ -1,6 +1,6 @@
 ---
 name: lean-usage
-description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets, chosen by task with a cheaper model only when quality doesn't obviously drop (Fable 5.2 at low or medium effort for 3D, VFX, UI/visual work and small tested code, never Fable at high; Opus 5.5 for big or hard coding; Sonnet 5.5 for reading many files and retrieval; Haiku with care for read-only jobs), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
+description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (coordinators stay on Opus 5.5 high), chosen by task with a cheaper model only when quality doesn't obviously drop (Fable 5.2 at low or medium effort for 3D, VFX, UI/visual work and small tested code, never Fable at high; Opus 5.5 for big or hard coding; Sonnet 5.5 for reading many files and retrieval; Haiku with care for read-only jobs), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
 ---
 
 # Lean usage
@@ -24,6 +24,8 @@ better at it, so it gets Fable. There is no global default model for subagents, 
 | Big or hard code: multi-file features, architecture, debugging an unclear failure, anything Fable already failed on (the bake-off didn't test Fable here) | Opus 5.5 |
 | Reading a lot of files, retrieving something | Sonnet 5.5 |
 | With care, read-only jobs: searches, file sweeps, listings, size surveys, doc lookups, gathering context for memory | Haiku |
+
+Coordinators (Workspace and Project) always run on Opus 5.5 at high effort (Daniel, q_13f0ff56b794458e); the Fable guide covers role agents only.
 
 Never run Fable 5.2 at high effort: it cost 2 to 3.3 times low or medium and never won outright (Daniel, q_6dcce6e0ef8d4957; evidence in Clearboard's `docs/design/bakeoff.md`).
 
