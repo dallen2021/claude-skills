@@ -1,6 +1,6 @@
 ---
 name: lean-usage
-description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (coordinators stay on Opus 5.5 high), chosen by task with a cheaper model only when quality doesn't obviously drop (Fable 5.2 at low or medium effort for 3D, VFX, UI/visual work and small tested code, never Fable at high; Opus 5.5 for big or hard coding; Sonnet 5.5 for reading many files and retrieval; Haiku with care for read-only jobs), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
+description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (coordinators stay on Opus 5.5 high), chosen by task with a cheaper model only when quality doesn't obviously drop (Fable 5.2 for 3D builds, VFX and UI/visual work at low or medium effort, never Fable at high; Opus 5.5 at medium for small tested code and big or hard coding, high only when the task needs it; Sonnet 5.5 for reading many files and retrieval; Haiku with care for read-only jobs), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
 ---
 
 # Lean usage
@@ -9,7 +9,7 @@ Daniel hit his session limit on 2026-10-21. The usage panel showed 92% of usage 
 sessions and from turns above 150k context, and 74% from sessions active 8+ hours. These rules exist to cut that.
 Quality still comes first: spend where it buys quality and nowhere else.
 
-## 1. Pick the model by task (Daniel, 2026-10-29, 2026-10-31 and 2026-11-10)
+## 1. Pick the model by task (Daniel, 2026-10-29, 2026-10-31, 2026-11-10 and 2026-11-13)
 
 Set `model` explicitly on every Agent call. Choose by the task, never by cost alone: use a cheaper model only where
 there would be no obvious decline in quality. Sonnet or Haiku would be cheaper for 3D modelling, but Fable 5.2 is clearly
@@ -17,17 +17,18 @@ better at it, so it gets Fable. There is no global default model for subagents, 
 
 | Work | Model |
 |---|---|
-| The main session and any coordinator session; design decisions; hard reasoning | Opus |
-| 3D builds (Roblox, Unity) and VFX | Fable 5.2, low effort (a medium pass on the look if needed) |
+| The main session and any coordinator session; design decisions; hard reasoning | Opus 5.5, high effort |
+| 3D builds (Roblox, Unity) | Fable 5.2, low effort for now (a medium pass on the look if needed); a Gemini trial is under way, and Opus 5.5 medium is the other candidate |
+| VFX | Fable 5.2 |
 | UI and visual work: Roblox UI, web heroes, screens, judging screenshots or contact sheets | Fable 5.2, medium effort (Opus 5.5 high is an equal pick for a web hero) |
-| Small, tested code features | Fable 5.2, low effort |
-| Big or hard code: multi-file features, architecture, debugging an unclear failure, anything Fable already failed on (the bake-off didn't test Fable here) | Opus 5.5 |
+| Small, tested code features | Opus 5.5, medium effort |
+| Big or hard code: multi-file features, architecture, debugging an unclear failure; the Opus roles (Code, Mod Dev, Planner, Gameplay and the like) | Opus 5.5, medium effort; high only when the coordinator judges the task needs it |
 | Reading a lot of files, retrieving something | Sonnet 5.5 |
 | With care, read-only jobs: searches, file sweeps, listings, size surveys, doc lookups, gathering context for memory | Haiku |
 
-Coordinators (Workspace and Project) always run on Opus 5.5 at high effort (Daniel, q_13f0ff56b794458e); the Fable guide covers role agents only.
+Coordinators (Workspace and Project) always run on Opus 5.5 at high effort (Daniel, q_13f0ff56b794458e); the table's other rows cover role agents only.
 
-Never run Fable 5.2 at high effort: it cost 2 to 3.3 times low or medium and never won outright (Daniel, q_6dcce6e0ef8d4957; evidence in Clearboard's `docs/design/bakeoff.md`).
+Never run Fable 5.2 at high effort: it cost 2 to 3.3 times low or medium and never won outright (Daniel, q_6dcce6e0ef8d4957; evidence in Clearboard's `docs/design/bakeoff.md`). Small code and the Opus roles moved to Opus 5.5 medium after two weeks of real work (Daniel, q_580e9db0e36e4be8; Clearboard's `docs/design/model-trials.md`, Part B).
 
 Never give Haiku a task that edits anything, decides something or judges quality.
 
