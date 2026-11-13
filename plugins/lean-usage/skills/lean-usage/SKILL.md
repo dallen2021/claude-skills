@@ -1,6 +1,6 @@
 ---
 name: lean-usage
-description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (coordinators stay on Opus 5.5 high), chosen by task with a cheaper model only when quality doesn't obviously drop (Fable 5.2 for 3D builds, VFX and UI/visual work at low or medium effort, never Fable at high; Opus 5.5 at medium for small tested code and big or hard coding, high only when the task needs it; Sonnet 5.5 for reading many files and retrieval; Haiku with care for read-only jobs), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
+description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (coordinators on Opus 5.5 high), chosen by task with a cheaper model only when quality doesn't obviously drop (Opus 5.5 medium for code, UI and VFX; Gemini 4 Carbon for 3D builds and Gemini 4 Hydrogen for reading and retrieval as Clearboard role agents, with Opus 5.5 medium and Sonnet 5.5 where Gemini can't run or for built-in Claude subagents; no Fable for now), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
 ---
 
 # Lean usage
@@ -11,26 +11,24 @@ Quality still comes first: spend where it buys quality and nowhere else.
 
 ## 1. Pick the model by task (Daniel, 2026-10-29, 2026-10-31, 2026-11-10 and 2026-11-13)
 
-Set `model` explicitly on every Agent call. Choose by the task, never by cost alone: use a cheaper model only where
-there would be no obvious decline in quality. Sonnet or Haiku would be cheaper for 3D modelling, but Fable 5.2 is clearly
-better at it, so it gets Fable. There is no global default model for subagents, so always set one.
+Set `model` explicitly on every Agent call and every role agent. Choose by the task, never by cost alone: use a cheaper
+model only where there would be no obvious decline in quality. There is no global default model for subagents, so
+always set one.
 
 | Work | Model |
 |---|---|
-| The main session and any coordinator session; design decisions; hard reasoning | Opus 5.5, high effort |
-| 3D builds (Roblox, Unity) | Fable 5.2, low effort for now (a medium pass on the look if needed); a Gemini trial is under way, and Opus 5.5 medium is the other candidate |
-| VFX | Fable 5.2 |
-| UI and visual work: Roblox UI, web heroes, screens, judging screenshots or contact sheets | Fable 5.2, medium effort (Opus 5.5 high is an equal pick for a web hero) |
-| Small, tested code features | Opus 5.5, medium effort |
-| Big or hard code: multi-file features, architecture, debugging an unclear failure; the Opus roles (Code, Mod Dev, Planner, Gameplay and the like) | Opus 5.5, medium effort; high only when the coordinator judges the task needs it |
-| Reading a lot of files, retrieving something | Sonnet 5.5 |
-| With care, read-only jobs: searches, file sweeps, listings, size surveys, doc lookups, gathering context for memory | Haiku |
+| The main session and any coordinator session (Workspace and Project); design decisions; hard reasoning | Opus 5.5, high effort |
+| Code, small or big: features, fixes, tests, scripts, architecture, debugging an unclear failure | Opus 5.5, medium effort; high only when the coordinator judges the task needs it |
+| UI and visual work: Roblox UI, web heroes, screens, judging screenshots or contact sheets | Opus 5.5, medium effort |
+| VFX | Opus 5.5, medium effort |
+| 3D builds (Roblox, Unity, Blender) | Gemini 4 Carbon, medium (Clearboard role agent, provider `gemini`, slug `gemini-4-carbon-medium`) |
+| Reading a lot of files, retrieval, searches, doc lookups, gathering context for memory | Gemini 4 Hydrogen, medium (`gemini-4-hydrogen-medium`); low for a quick lookup |
 
-Coordinators (Workspace and Project) always run on Opus 5.5 at high effort (Daniel, q_13f0ff56b794458e); the table's other rows cover role agents only.
+- **Fable 5.2:** no role for now. **Codex:** only when Daniel names it. Sonnet 5.5 and Haiku are replaced by Hydrogen.
+- **Where Gemini can't run** (no agy signed in on that computer, Gemini's bucket at its limit, or a 3D agent on a PC, where Gemini can't run shell commands such as Blender yet): 3D runs on Opus 5.5 medium and retrieval on Sonnet 5.5, until Gemini is there or resets. Clearboard does this by itself and says so.
+- **Built-in subagents** in a plain Claude Code session (the Agent tool) can only be Claude: retrieval and searches on Sonnet 5.5, 3D, UI, VFX and code on Opus 5.5 medium. Never Haiku for a task that edits anything, decides something or judges quality.
 
-Never run Fable 5.2 at high effort: it cost 2 to 3.3 times low or medium and never won outright (Daniel, q_6dcce6e0ef8d4957; evidence in Clearboard's `docs/design/bakeoff.md`). Small code and the Opus roles moved to Opus 5.5 medium after two weeks of real work (Daniel, q_580e9db0e36e4be8; Clearboard's `docs/design/model-trials.md`, Part B).
-
-Never give Haiku a task that edits anything, decides something or judges quality.
+Evidence: Clearboard's `docs/design/bakeoff.md` and `docs/design/model-trials.md` (Daniel, q_6dcce6e0ef8d4957, q_580e9db0e36e4be8, q_e08b390e510945ff).
 
 If an agent is already running on the "wrong" model, let it finish rather than restarting it.
 
