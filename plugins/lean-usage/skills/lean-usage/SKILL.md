@@ -50,6 +50,8 @@ Quality comes first, cost second. Each subagent re-reads files and carries its o
 - Read only the part of a file you need (offset/limit, grep first). Cap tool output (`head_limit`, `| head`, `tail`).
 - Images are expensive. Use one contact sheet plus 1–2 zooms, not dozens of screenshots, and use `scale` ≤0.5 for browser screenshots when detail isn't needed.
 - Don't re-read files you just edited, or images you've already judged.
+- Every tool call is a request that re-reads the whole context. Put read-only steps that follow each other (reading files, searching, `git status`/`log`, listing) into one Bash call rather than one call each.
+- While iterating, run only the checks for what you changed (the project's targeted check command, or the one test file); run the full suite once, before you report or hand off.
 - Put long findings in files (notes folder, memory) and pass paths, not pastes.
 
 ## 4. Compact early, end long sessions
