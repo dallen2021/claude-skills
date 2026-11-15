@@ -1,0 +1,6 @@
+{
+  "name": "web-guidance",
+  "description": "Google Chrome's Modern Web Guidance for HTML, CSS and client-side JS, pinned to 1.0.0 and run locally with its usage reporting off.",
+  "version": "1.0.0",
+  "author": { "name": "dallen2021" }
+}

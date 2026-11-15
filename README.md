@@ -5,6 +5,7 @@ Daniel's personal agent skills, shared across his computers and usable from both
 | Plugin | What it does |
 |---|---|
 | `lean-usage` | Usage-efficiency rules: model per subagent, fewer subagents, small context, early compaction, time-limited waits. |
+| `web-guidance` | Google Chrome's [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) for HTML, CSS and client-side JS (Claude Code). Pinned to 1.0.0 and checked against its checksum, run locally, its usage reporting off. Apache-2.0 (`plugins/web-guidance/LICENSE-modern-web-guidance`). |
 
 ## Set up or update a computer (paste this to your agent)
 
@@ -40,6 +41,7 @@ Each machine picks it up the next time the block is pasted.
 ```bash
 claude plugin marketplace add dallen2021/claude-skills
 claude plugin install lean-usage@daniel-skills --scope user
+claude plugin install web-guidance@daniel-skills --scope user
 ```
 
 `setup/manifest.json` lists the settings and the `CLAUDE.md` line.

@@ -1,11 +1,18 @@
 {
   "name": "daniel-skills",
-  "owner": { "name": "dallen2021" },
+  "owner": {
+    "name": "dallen2021"
+  },
   "plugins": [
     {
       "name": "lean-usage",
       "source": "./plugins/lean-usage",
       "description": "Usage-efficiency rules: model per subagent, fewer subagents, small context, early compaction."
+    },
+    {
+      "name": "web-guidance",
+      "source": "./plugins/web-guidance",
+      "description": "Google Chrome's Modern Web Guidance for HTML, CSS and client-side JS, pinned to 1.0.0, run locally, usage reporting off."
     }
   ]
 }
