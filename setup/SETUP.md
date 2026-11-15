@@ -25,7 +25,7 @@ These are instructions for a coding agent (Claude Code or Codex), not for a huma
    - If both are installed, set up the one you are, then offer to set up the other.
 2. **Note the OS and shell**, and the home folder: `$HOME`, or `%USERPROFILE%` on Windows.
 3. **Find this repo.** Use the clone the user pointed you at. Otherwise use `~/claude-skills`: clone `https://github.com/dallen2021/claude-skills` there if it's missing, or `git pull --ff-only` if it exists. If the pull can't fast-forward, stop and ask.
-4. **Read the manifest,** `setup/manifest.json`. It lists every plugin with the skills, settings and instruction lines it needs, so read it rather than guessing from this file.
+4. **Read the manifest,** `setup/manifest.json`. It lists every plugin with the skills, settings and instruction lines it needs, so read it rather than guessing from this file. A plugin with an `agents` list is only for those agents: skip it, its settings and its instruction line on any other, and follow its `note`.
 
 ## 2. Install the skills
 
