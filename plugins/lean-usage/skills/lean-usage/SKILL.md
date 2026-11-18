@@ -1,6 +1,6 @@
 ---
 name: lean-usage
-description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (coordinators on Opus 5.5 high), chosen by task with a cheaper model only when quality doesn't obviously drop (Opus 5.5 medium for code, UI and VFX; Gemini 4 Carbon for 3D builds and Gemini 4 Hydrogen for reading and retrieval as Clearboard role agents, with Opus 5.5 medium and Sonnet 5.5 where Gemini can't run or for built-in Claude subagents; no Fable for now), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
+description: Daniel's usage-efficiency rules for every Claude Code session on every machine — which model each subagent gets (coordinators on Opus 5.5 high), chosen by task with a cheaper model only when quality doesn't obviously drop (Opus 5.5 medium for code, UI and VFX; Codex GPT-6.2 Astra high for 3D builds, then Gemini 4 Carbon, and Gemini 4 Hydrogen for reading and retrieval as Clearboard role agents, with Opus 5.5 medium and Sonnet 5.5 where those can't run or for built-in Claude subagents; no Fable for now), when to let long-term sessions work instead of subagents, keeping context small, compacting early, and ending long sessions. Use before spawning any subagent, planning parallel work, starting a long or multi-step task, reviewing screenshots/images, or when usage or limits come up.
 ---
 
 # Lean usage
@@ -9,7 +9,7 @@ Daniel hit his session limit on 2026-10-21. The usage panel showed 92% of usage 
 sessions and from turns above 150k context, and 74% from sessions active 8+ hours. These rules exist to cut that.
 Quality still comes first: spend where it buys quality and nowhere else.
 
-## 1. Pick the model by task (Daniel, 2026-10-29, 2026-10-31, 2026-11-10 and 2026-11-13)
+## 1. Pick the model by task (Daniel, 2026-10-29, 2026-10-31, 2026-11-10, 2026-11-13 and 2026-11-17)
 
 Set `model` explicitly on every Agent call and every role agent. Choose by the task, never by cost alone: use a cheaper
 model only where there would be no obvious decline in quality. There is no global default model for subagents, so
@@ -21,14 +21,15 @@ always set one.
 | Code, small or big: features, fixes, tests, scripts, architecture, debugging an unclear failure | Opus 5.5, medium effort; high only when the coordinator judges the task needs it |
 | UI and visual work: Roblox UI, web heroes, screens, judging screenshots or contact sheets | Opus 5.5, medium effort |
 | VFX | Opus 5.5, medium effort |
-| 3D builds (Roblox, Unity, Blender) | Gemini 4 Carbon, medium (Clearboard role agent, provider `gemini`, slug `gemini-4-carbon-medium`) |
+| 3D builds (Roblox, Unity, Blender) | Codex GPT-6.2 Astra, high (Clearboard role agent, provider `codex`, model `gpt-6.2-astra`, effort `high`) |
 | Reading a lot of files, retrieval, searches, doc lookups, gathering context for memory | Gemini 4 Hydrogen, medium (`gemini-4-hydrogen-medium`); low for a quick lookup |
 
-- **Fable 5.2:** no role for now. **Codex:** only when Daniel names it. Sonnet 5.5 and Haiku are replaced by Hydrogen.
-- **Where Gemini can't run** (no agy signed in on that computer, Gemini's bucket at its limit, or a 3D agent on a PC, where Gemini can't run shell commands such as Blender yet): 3D runs on Opus 5.5 medium and retrieval on Sonnet 5.5, until Gemini is there or resets. Clearboard does this by itself and says so.
+- **Fable 5.2:** no role for now. **Codex:** 3D builds, otherwise only when Daniel names it. Sonnet 5.5 and Haiku are replaced by Hydrogen.
+- **Where Codex can't run** (not installed or signed in on that computer, or at its limit): 3D runs on Gemini 4 Carbon, medium (provider `gemini`, slug `gemini-4-carbon-medium`), and where neither runs on Opus 5.5 medium. Clearboard doesn't move a Codex agent by itself: pick the fallback when you start the agent, or retire one at its limit and start it again under its name on Gemini.
+- **Where Gemini can't run** (no agy signed in on that computer, Gemini's bucket at its limit, or a 3D agent on a PC, where Gemini can't run shell commands such as Blender yet): a Gemini 3D agent runs on Opus 5.5 medium and retrieval on Sonnet 5.5, until Gemini is there or resets. Clearboard does this by itself and says so.
 - **Built-in subagents** in a plain Claude Code session (the Agent tool) can only be Claude: retrieval and searches on Sonnet 5.5, 3D, UI, VFX and code on Opus 5.5 medium. Never Haiku for a task that edits anything, decides something or judges quality.
 
-Evidence: Clearboard's `docs/design/bakeoff.md` and `docs/design/model-trials.md` (Daniel, q_6dcce6e0ef8d4957, q_580e9db0e36e4be8, q_e08b390e510945ff).
+Evidence: Clearboard's `docs/design/bakeoff.md` and `docs/design/model-trials.md` (Daniel, q_6dcce6e0ef8d4957, q_580e9db0e36e4be8, q_e08b390e510945ff, q_99676d31f1ac47c0).
 
 If an agent is already running on the "wrong" model, let it finish rather than restarting it.
 
